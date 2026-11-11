@@ -59,10 +59,9 @@ _Last updated: 2026-11-11 (all suggested UI improvements done; Users dialogs, br
   - Page index is clamped when deleting removes the last row of the last page
 - [x] `Settings.jsx` – profile form + notification switches with inline validation (name required, valid email), Save disabled until something changes, Discard button, save toast (extra page, local state only)
 - [x] `NotFound.jsx` – 404 page
-- [x] `ReportGeneration.jsx` – "Report Generation" sidebar item and page (`/report-generation`) with a working Jasper Report dropdown (Activity Report, Ticket) and a description of the selected report; options and their parameter fields live in `api/reportGenerationData.js`
-  - Parameter form per report (Activity Report: From/To dates with date-order check; Ticket: ticket number), inline required-field errors
-  - Generate (disabled until a report is chosen, spinner while running) and Reset buttons; success result and error (with Retry) placeholders
-  - UI only: the request is a simulated delay, no backend
+- [x] `ReportGeneration.jsx` – "Report Generation" sidebar item and page (`/report-generation`) with nine selectable Jasper Report options: Activity, Ticket, Deposit Liability Ledger, Summary of Demand Deposit Transactions, Financial Accounting Department, Credit Advice, Debit Advice, Detailed Schedule of Clearing Accounts, and Deposit Liabilities Transaction Summary.
+  - Report-specific fields and required/date-order validation are defined in `api/reportGenerationData.js`; Axios endpoints are configured in `.env` and `api/apiConfig.js`.
+  - Generate shows a loading indicator; successful PDF responses provide Open and Download links, and failures show an error with Retry.
 
 ### Routing (`App.jsx`)
 - [x] Routes declared with `<Route>` inside `createBrowserRouter` + `RouterProvider` (a data router, needed for `useBlocker`); all pages wrapped in `Layout`
@@ -79,7 +78,11 @@ _Last updated: 2026-11-11 (all suggested UI improvements done; Users dialogs, br
 
 ### Verification
 - [x] Dashboard and Reports pages opened in a browser: layout, stat cards, all three charts and tables render
-- [x] Report Generation page opened in a browser: sidebar item appears, dropdown lists Activity Report and Ticket, selecting an option shows its description
+- [x] Report Generation dropdown verified in a browser on 2026-11-11: all nine options appear in the requested order and can be selected. Configured endpoint paths and parameter names were compared with the nine backend controllers.
+- [x] On 2026-11-11, all nine reports were generated through the browser with the supplied example filters. Each request reached its matching route with the expected parameters, returned HTTP 200, and produced a PDF blob with Open and Download links.
+- [x] The Ticket form showed a disabled loading button while generating and cleared the result on Reset.
+- [x] Ticket requests with no matching records display the backend's HTTP 404 message. The backend was temporarily unavailable during this investigation, causing the development proxy to return HTTP 500; restarting the backend restored generation.
+- [ ] Confirm an actual saved PDF download in a browser environment that supports observing downloads. The PDF blob and download-link filename were verified, but a completed file save was not.
 - [x] Sidebar auto-collapse to icons observed at a tablet-sized viewport (Reports page)
 - [x] UI improvements checked with a scripted Chrome run: skeletons, empty states, clear buttons, CSV download, Users pagination, sticky header, saved sidebar state, Settings validation, leave-page dialog (desktop and mobile drawer), Report Generation validation/loading/result/Reset, per-route titles; no console errors
 - [x] Users Add / Edit / Delete (validation, duplicate email, page clamp), breadcrumbs, and the leave-page dialog on Back/Forward, sidebar, breadcrumb and mobile drawer links checked with a scripted Chrome run; no console errors
@@ -92,7 +95,7 @@ _Last updated: 2026-11-11 (all suggested UI improvements done; Users dialogs, br
 ### Priority overview
 - **P1 – Next (UI only, no backend):** mobile search icon; mobile browser QA
 - **P2 – Core flows:** Login/protected routes/real Logout; Profile page; notifications list and mark-as-read; Reports sorting and detail view; error boundary and global snackbar
-- **P3 – Needs backend:** real API calls, report download/delete, Jasper report list and output, Settings save, server-side filter/pagination
+- **P3 – Needs backend:** real API calls for remaining pages, report download/delete on the Reports page, Settings save, server-side filter/pagination
 - **P4 – Quality and polish:** unit tests, accessibility audit, code-splitting, Router v7 flags, deployment config, optional dark mode
 
 ### UI improvements (suggested, from review)
@@ -126,7 +129,7 @@ _Last updated: 2026-11-11 (all suggested UI improvements done; Users dialogs, br
 - [ ] Topbar: "Profile" menu item currently opens `/settings`; add a dedicated Profile page
 - [ ] Notifications: connect to real data; "mark as read" and a dedicated notification list
 - [ ] Users page: persist Add / Edit / Delete to the backend (the dialogs and validation are done; changes currently only update local state)
-- [ ] Report Generation: send the parameters to the backend and preview/download the real output (the form, Generate button and result placeholder are done; the request is currently a simulated delay in `api/reportGenerationData.js`)
+- [ ] Report Generation: confirm a PDF file is saved by the browser's download action
 - [ ] Report Generation: load the list of Jasper reports from the API instead of the static list
 - [ ] Settings page: save to backend, change password, avatar upload
 - [ ] Reports: sorting by column, and a server-side filter/pagination option
