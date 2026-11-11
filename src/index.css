@@ -1,0 +1,28 @@
+/* Minimal global styles — most styling is handled by the MUI theme. */
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+}
+
+/* Elements marked with .no-print are hidden when exporting to PDF (window.print) */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+
+  main {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Sticky-header tables are height-limited on screen; print every row. */
+  .MuiTableContainer-root {
+    max-height: none !important;
+    overflow: visible !important;
+  }
+}
