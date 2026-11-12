@@ -10,6 +10,7 @@ export default defineConfig(({ mode }) => {
     }
     return {
         plugins: [react()],
+        // NETWORK CONFIGURATION
         server: {
             host: "0.0.0.0",
             port: 5173,
