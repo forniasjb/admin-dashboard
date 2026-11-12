@@ -23,7 +23,7 @@ const validate = (report, values) => {
 };
 
 export default function ReportGeneration() {
-    useDocumentTitle("Report Generation");
+    useDocumentTitle("Generate Reports");
 
     const [selectedReport, setSelectedReport] = useState("");
     const [values, setValues] = useState({});
@@ -106,7 +106,7 @@ export default function ReportGeneration() {
 
     return (
         <>
-            <PageHeader title="Report Generation" subtitle="Select a Jasper report to generate." />
+            <PageHeader title="Generate Reports" subtitle="Select a Jasper report to generate." />
 
             <Box sx={{ maxWidth: 560, display: "flex", flexDirection: "column", gap: 3 }}>
                 <Card>

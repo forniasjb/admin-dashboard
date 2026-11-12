@@ -8,7 +8,7 @@ export const APP_NAME = 'AdminPro';
 // Page names used by the breadcrumbs.
 export const ROUTE_LABELS = {
   '/reports': 'Reports',
-  '/report-generation': 'Report Generation',
+  '/report-generation': 'Generate Reports',
   '/users': 'Users',
   '/settings': 'Settings',
 };

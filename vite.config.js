@@ -1,5 +1,6 @@
 import react from "@vitejs/plugin-react";
 import process from "node:process";
+import { fileURLToPath } from "node:url";
 import { defineConfig, loadEnv } from "vite";
 
 // https://vite.dev/config/
@@ -10,6 +11,14 @@ export default defineConfig(({ mode }) => {
     }
     return {
         plugins: [react()],
+
+        // PATH ALIAS CONFIGURATION
+        resolve: {
+            alias: {
+                "@": fileURLToPath(new URL("./src", import.meta.url)),
+            },
+        },
+
         // NETWORK CONFIGURATION
         server: {
             host: "0.0.0.0",

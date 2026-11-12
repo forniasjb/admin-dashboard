@@ -11,7 +11,7 @@ import { APP_NAME, DRAWER_COLLAPSED_WIDTH, DRAWER_WIDTH, TOPBAR_HEIGHT } from '.
 const NAV_ITEMS = [
   { label: 'Dashboard', path: '/', icon: <DashboardIcon /> },
   { label: 'Reports', path: '/reports', icon: <BarChartIcon /> },
-  { label: 'Report Generation', path: '/report-generation', icon: <PictureAsPdfIcon /> },
+  { label: 'Generate Reports', path: '/report-generation', icon: <PictureAsPdfIcon /> },
   { label: 'Users', path: '/users', icon: <PeopleIcon /> },
   { label: 'Settings', path: '/settings', icon: <SettingsIcon /> },
 ];

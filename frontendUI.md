@@ -22,7 +22,7 @@ _Last updated: 2026-11-11 (all suggested UI improvements done; Users dialogs, br
 ### Layout (`components/layout/`)
 - [x] `Layout.jsx` – app shell using `<Outlet />`, responsive sidebar state
 - [x] `Sidebar.jsx` – permanent drawer, 260px collapsible to 70px with smooth animation
-- [x] Sidebar navigation items: Dashboard, Reports, Report Generation, Users, Settings
+- [x] Sidebar navigation items: Dashboard, Reports, Generate Reports, Users, Settings
 - [x] Active route highlighting, tooltips when collapsed, logo at top
 - [x] Auto-collapse to icons on tablet; temporary overlay drawer on mobile
 - [x] Desktop collapsed/expanded choice remembered in `localStorage`
@@ -59,7 +59,7 @@ _Last updated: 2026-11-11 (all suggested UI improvements done; Users dialogs, br
   - Page index is clamped when deleting removes the last row of the last page
 - [x] `Settings.jsx` – profile form + notification switches with inline validation (name required, valid email), Save disabled until something changes, Discard button, save toast (extra page, local state only)
 - [x] `NotFound.jsx` – 404 page
-- [x] `ReportGeneration.jsx` – "Report Generation" sidebar item and page (`/report-generation`) with nine selectable Jasper Report options: Activity, Ticket, Deposit Liability Ledger, Summary of Demand Deposit Transactions, Financial Accounting Department, Credit Advice, Debit Advice, Detailed Schedule of Clearing Accounts, and Deposit Liabilities Transaction Summary.
+- [x] `ReportGeneration.jsx` – "Generate Reports" sidebar item and page (`/report-generation`) with nine selectable Jasper Report options: Activity, Ticket, Deposit Liability Ledger, Summary of Demand Deposit Transactions, Financial Accounting Department, Credit Advice, Debit Advice, Detailed Schedule of Clearing Accounts, and Deposit Liabilities Transaction Summary.
   - Report-specific fields and required/date-order validation are defined in `api/reportGenerationData.js`; Axios endpoints are configured in `.env` and `api/apiConfig.js`.
   - Generate shows a loading indicator; successful PDF responses provide Open and Download links, and failures show an error with Retry.
 
@@ -80,9 +80,12 @@ _Last updated: 2026-11-11 (all suggested UI improvements done; Users dialogs, br
 - [x] Dashboard and Reports pages opened in a browser: layout, stat cards, all three charts and tables render
 - [x] Report Generation dropdown verified in a browser on 2026-11-11: all nine options appear in the requested order and can be selected. Configured endpoint paths and parameter names were compared with the nine backend controllers.
 - [x] On 2026-11-11, all nine reports were generated through the browser with the supplied example filters. Each request reached its matching route with the expected parameters, returned HTTP 200, and produced a PDF blob with Open and Download links.
+- [x] On 2026-11-12, all nine routes returned HTTP 200 and PDF signatures through the development proxy with the known matching filters. All nine forms were submitted through browser automation; PDF links appeared, and seven of the resulting download blobs were checked for PDF content and filenames. Browser automation used form submission rather than physical button clicks.
+- [x] The screenshot's Ticket transaction ID `15` returned HTTP 404 directly from the backend for both possible interpretations of the displayed date; the backend query found no matching records. Ticket `0000000` on `2026-10-02` generated successfully in this environment.
+- [x] On 2026-11-12, retry repeated the failed Ticket request, generating showed a disabled loading button, and Reset cleared the result.
 - [x] The Ticket form showed a disabled loading button while generating and cleared the result on Reset.
 - [x] Ticket requests with no matching records display the backend's HTTP 404 message. The backend was temporarily unavailable during this investigation, causing the development proxy to return HTTP 500; restarting the backend restored generation.
-- [ ] Confirm an actual saved PDF download in a browser environment that supports observing downloads. The PDF blob and download-link filename were verified, but a completed file save was not.
+- [ ] Confirm an actual saved PDF download in a browser environment that supports observing downloads. The PDF blob and download-link filename were verified, but browser automation timed out waiting for a download event.
 - [x] Sidebar auto-collapse to icons observed at a tablet-sized viewport (Reports page)
 - [x] UI improvements checked with a scripted Chrome run: skeletons, empty states, clear buttons, CSV download, Users pagination, sticky header, saved sidebar state, Settings validation, leave-page dialog (desktop and mobile drawer), Report Generation validation/loading/result/Reset, per-route titles; no console errors
 - [x] Users Add / Edit / Delete (validation, duplicate email, page clamp), breadcrumbs, and the leave-page dialog on Back/Forward, sidebar, breadcrumb and mobile drawer links checked with a scripted Chrome run; no console errors
